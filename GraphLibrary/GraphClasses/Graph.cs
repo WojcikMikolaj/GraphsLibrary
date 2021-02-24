@@ -15,7 +15,7 @@ namespace GraphLibrary
 
         public int EdgesCount { get; private set; }
 
-        public bool Directed { get; }
+        public bool Directed { get => directed; }
         protected readonly bool directed;
 
 
