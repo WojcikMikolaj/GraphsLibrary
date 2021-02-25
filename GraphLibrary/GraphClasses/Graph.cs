@@ -26,12 +26,38 @@ namespace GraphLibrary
             degrees = new (int In, int Out)[verticesCount];
         }
 
-        public abstract bool AddEdge(Edge e);
-        public abstract bool AddEdge(int from, int to, double weight = 0);
+        public virtual bool AddEdge(Edge e)
+        {
+            return AddEdge(e.From, e.To, e.Weight);
+        }
+        public virtual bool AddEdge(int from, int to, double weight = 0)
+        {
+            degrees[from].Out++;
+            degrees[to].In++;
+            if(directed==false)
+            {
+                degrees[from].In++;
+                degrees[to].Out++;
+            }
+            return true;
+        }
 
 
-        public abstract bool DeleteEdge(Edge e, bool checkWeight);
-        public abstract bool DeleteEdge(int from, int to);
+        public virtual bool DeleteEdge(Edge e, bool checkWeight)
+        {
+            return DeleteEdge(e.From, e.To);
+        }
+        public virtual bool DeleteEdge(int from, int to)
+        {
+            degrees[from].Out--;
+            degrees[to].In--;
+            if (directed == false)
+            {
+                degrees[from].In--;
+                degrees[to].Out--;
+            }
+            return true;
+        }
 
 
         public abstract Edge GetEdge(int from, int to);

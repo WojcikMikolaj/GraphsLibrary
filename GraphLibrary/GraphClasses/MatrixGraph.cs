@@ -35,6 +35,7 @@ namespace GraphLibrary
             else
             {
                 edgesTab[e.From][e.To] = new Edge(e);
+                base.AddEdge(from, to, weight);
                 return true;
             }
         }
@@ -44,9 +45,10 @@ namespace GraphLibrary
             Edge edge = edgesTab[e.From][e.To];
             if (e!=null)
             {
-                if(edge.Weight == e.Weight)
-                {
+                if(!checkWeight || edge.Weight == e.Weight)
+                {                    
                     edgesTab[e.From][e.To] = null;
+                    base.DeleteEdge(e, checkWeight);
                     return true;
                 }
                 else
@@ -54,13 +56,12 @@ namespace GraphLibrary
                     return false;
                 }
             }
-            return true;
+            return false;
         }
 
         public override bool DeleteEdge(int from, int to)
         {
-            edgesTab[from][to] = null;
-            return true;
+            return DeleteEdge(new Edge(from, to, -1), false);
         }
 
         public override Edge GetEdge(int from, int to)
