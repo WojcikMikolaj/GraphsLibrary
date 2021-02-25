@@ -29,5 +29,18 @@ namespace XUnitTestsForGraphLibrary
             Assert.Equal(value, graph.VerticesCount);
             Assert.True(graph.Directed);
         }
+
+        [Fact]
+        public void DirectedGraphAddEdgeAndDeleteEdge()
+        {
+            Graph graph = new MatrixGraph(10, true);
+            graph.AddEdge(0, 9, 10);
+            graph.AddEdge(2, 0, 5);
+            Assert.Equal(1, graph.GetOutDegree(0));
+            Assert.Equal(1, graph.GetInDegree(0));
+            graph.DeleteEdge(0, 9);
+            Assert.Equal(0, graph.GetOutDegree(0));
+            Assert.Equal(1, graph.GetInDegree(0));
+        }
     }
 }
