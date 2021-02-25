@@ -28,15 +28,16 @@ namespace GraphLibrary
 
         public virtual bool AddEdge(Edge e)
         {
-            return IncreaseDegree(e.From, e.To);
+            return IncreaseDegreeAndEdgesCount(e.From, e.To);
         }
         public virtual bool AddEdge(int from, int to, double weight = 0)
         {
-            return IncreaseDegree(from, to);
+            return IncreaseDegreeAndEdgesCount(from, to);
         }
 
-        private bool IncreaseDegree(int from, int to)
+        private bool IncreaseDegreeAndEdgesCount(int from, int to)
         {
+            EdgesCount++;
             degrees[from].Out++;
             degrees[to].In++;
             if (directed == false)
@@ -49,15 +50,16 @@ namespace GraphLibrary
 
         public virtual bool DeleteEdge(Edge e, bool checkWeight)
         {
-            return DecreaseDegree(e.From, e.To);
+            return DecreaseDegreeAndEdgesCount(e.From, e.To);
         }
         public virtual bool DeleteEdge(int from, int to)
         {
-            return DecreaseDegree(from, to);
+            return DecreaseDegreeAndEdgesCount(from, to);
         }
 
-        private bool DecreaseDegree(int from, int to)
+        private bool DecreaseDegreeAndEdgesCount(int from, int to)
         {
+            EdgesCount--;
             degrees[from].Out--;
             degrees[to].In--;
             if (directed == false)

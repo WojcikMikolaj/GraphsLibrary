@@ -10,13 +10,13 @@ namespace GraphLibrary
     {
         Edge[][] edgesTab;
 
-        public MatrixGraph(int verticesCount, bool directed = false): base(verticesCount, directed)
+        public MatrixGraph(int verticesCount, bool directed = false) : base(verticesCount, directed)
         {
             edgesTab = new Edge[verticesCount][];
-            for(int i=0; i<verticesCount; i++)
+            for (int i = 0; i < verticesCount; i++)
             {
                 edgesTab[i] = new Edge[verticesCount];
-            }            
+            }
         }
 
 
@@ -40,13 +40,13 @@ namespace GraphLibrary
             }
         }
 
-        public override bool DeleteEdge(Edge e, bool checkWeight=false)
+        public override bool DeleteEdge(Edge e, bool checkWeight = false)
         {
             Edge edge = edgesTab[e.From][e.To];
-            if (e!=null)
+            if (e != null)
             {
-                if(!checkWeight || edge.Weight == e.Weight)
-                {                    
+                if (!checkWeight || edge.Weight == e.Weight)
+                {
                     edgesTab[e.From][e.To] = null;
                     base.DeleteEdge(e, checkWeight);
                     return true;
@@ -78,10 +78,10 @@ namespace GraphLibrary
         public override IEnumerable<Edge> GetEdgesTo(int vertexID)
         {
             List<Edge> edges = new List<Edge>();
-            for(int i=0; i<verticesCount; i++)
+            for (int i = 0; i < verticesCount; i++)
             {
                 Edge e = edgesTab[i][vertexID];
-                if (e!=null)
+                if (e != null)
                 {
                     edges.Add(e);
                 }
@@ -102,11 +102,15 @@ namespace GraphLibrary
         public override Graph ReversedGraph()
         {
             MatrixGraph reversedGraph = new MatrixGraph(verticesCount, directed);
-            for(int i=0; i<verticesCount; i++)
+            for (int i = 0; i < verticesCount; i++)
             {
-                for(int j=0; j<verticesCount; j++)
+                for (int j = 0; j < verticesCount; j++)
                 {
-                    reversedGraph.edgesTab[j][i] = new Edge(edgesTab[i][j]);
+                    Edge e = edgesTab[i][j];
+                    if (e != null)
+                    {
+                        reversedGraph.AddEdge(new Edge(e.To, e.From, e.Weight));
+                    }
                 }
             }
             return reversedGraph;

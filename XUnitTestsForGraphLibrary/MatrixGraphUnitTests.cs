@@ -38,9 +38,11 @@ namespace XUnitTestsForGraphLibrary
             graph.AddEdge(2, 0, 5);
             Assert.Equal(1, graph.GetOutDegree(0));
             Assert.Equal(1, graph.GetInDegree(0));
+            Assert.Equal(2, graph.EdgesCount);
             graph.DeleteEdge(0, 9);
             Assert.Equal(0, graph.GetOutDegree(0));
             Assert.Equal(1, graph.GetInDegree(0));
+            Assert.Equal(1, graph.EdgesCount);
         }
 
         [Fact]
@@ -51,9 +53,52 @@ namespace XUnitTestsForGraphLibrary
             graph.AddEdge(2, 0, 5);
             Assert.Equal(2, graph.GetOutDegree(0));
             Assert.Equal(2, graph.GetInDegree(0));
+            Assert.Equal(2, graph.EdgesCount);
             graph.DeleteEdge(0, 9);
             Assert.Equal(1, graph.GetOutDegree(0));
             Assert.Equal(1, graph.GetInDegree(0));
+            Assert.Equal(1, graph.EdgesCount);
+        }
+
+        [Fact]
+        public void ReverseGraph()
+        {
+            Graph graph = new MatrixGraph(10, true);
+            graph.AddEdge(0, 9, 10);
+            graph.AddEdge(2, 0, 5);            
+            Graph reversedGraph = graph.ReversedGraph();
+            Assert.Equal(1, reversedGraph.GetOutDegree(9));
+            Assert.Equal(1, reversedGraph.GetInDegree(2));
+            Assert.Equal(2, reversedGraph.EdgesCount);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void IsolatedGraph(bool value)
+        {
+            Graph graph = new MatrixGraph(10, true);
+            graph.AddEdge(0, 9, 10);
+            graph.AddEdge(2, 0, 5);
+            Graph isolatedGraph = graph.IsolatedGraph(value);
+            Assert.Equal(10, isolatedGraph.VerticesCount);
+            Assert.Equal(value, isolatedGraph.Directed);
+            Assert.Equal(0, isolatedGraph.EdgesCount);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GraphOfSameType(bool value)
+        {
+            Graph graph = new MatrixGraph(10, true);
+            graph.AddEdge(0, 9, 10);
+            graph.AddEdge(2, 0, 5);
+            Graph sameTypeGraph = graph.NewGraphOfSameType(5, value);
+            Assert.Equal(5, sameTypeGraph.VerticesCount);
+            Assert.Equal(value, sameTypeGraph.Directed);
+            Assert.Equal(0, sameTypeGraph.EdgesCount);
+            Assert.IsType<MatrixGraph>(sameTypeGraph);
         }
     }
 }
