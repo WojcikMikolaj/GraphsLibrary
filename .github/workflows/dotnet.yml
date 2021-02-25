@@ -21,8 +21,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Restore dependencies
+    - name: Restore GraphLibrary dependencies
       run: dotnet restore GraphLibrary
+    - name: Restore Tests dependencies
+      run: dotnet restore XUnitTestsForGraphLibrary
     - name: Build library
       run: dotnet build GraphLibrary --no-restore
     - name: Build tests
