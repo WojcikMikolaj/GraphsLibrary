@@ -27,7 +27,7 @@ namespace XUnitTestsForGraphLibrary
             g.AddEdge(5, 8, random.NextDouble());
 
             bool[] tab;
-            g.RecursiveDFS(null, null, null, 0, out tab);
+            g.DFS(null, null, null, 0, out tab);
             foreach (bool b in tab)
             {
                 Assert.True(b);
@@ -35,13 +35,12 @@ namespace XUnitTestsForGraphLibrary
 
             bool[] invTab;
             Graph invGraph = g.ReversedGraph();
-            invGraph.RecursiveDFS(null, null, null, 0, out invTab);
+            invGraph.DFS(null, null, null, 0, out invTab);
             Assert.True(invTab[0]);
             for(int i=1; i<invTab.Length; i++)
             {
                 Assert.Equal(!value, invTab[i]);
             }
-        }
-        
+        }             
     }
 }

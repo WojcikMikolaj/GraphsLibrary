@@ -1,91 +1,64 @@
 ﻿using GraphLibrary.UtilityClasses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLibrary.GraphExtenders.SearchExtenders
 {
     public static class DFSExtender
     {
-        public static bool RecursiveDFS(this Graph g, VisitVertexFunction preVisit, VisitVertexFunction postVisit, VisitEdgeFunction visitEdge,
-         int startingIndex, out bool[] visited)
+        public static bool DFS(this Graph g, VisitVertexFunction preVisit, VisitVertexFunction postVisit, VisitEdgeFunction visitEdge,
+          int startingIndex, out bool[] visited)
         {
             if (startingIndex < 0 || startingIndex >= g.VerticesCount)
             {
-                throw new ArgumentOutOfRangeException("startingIndex");
+                throw new IndexOutOfRangeException("startingIndex must be between (inclusive) 0 and VerticesCount-1");
             }
-
-            bool[] v = new bool[g.VerticesCount];
-            bool? result = g.DFS(preVisit, postVisit, visitEdge, startingIndex, v);
-            visited = v;
-
-            if (result.HasValue == false)
-            {
-                return false;
-            }
-            return result.Value;
+            bool[] visitedTab = new bool[g.VerticesCount];
+            visited = visitedTab;
+            return RecursiveDFS(g, preVisit, postVisit, visitEdge, startingIndex, visitedTab);
         }
 
-        private static bool? DFS(this Graph g, VisitVertexFunction preVisit, VisitVertexFunction postVisit, VisitEdgeFunction visitEdge,
-          int startingIndex, bool[] visited)
+        private static bool RecursiveDFS(this Graph g, VisitVertexFunction preVisit, VisitVertexFunction postVisit, VisitEdgeFunction visitEdge,
+         int startingIndex, bool[] visited)
         {
+            if (visited[startingIndex])
+            {
+                return true;
+            }
             visited[startingIndex] = true;
-            if (preVisit != null)
+            if (null != preVisit)
             {
-                bool? tmp = preVisit(startingIndex);
-                if (tmp.HasValue == false)
-                {
-                    return null;
-                }
-                if (tmp.Value == false)
+                bool preVisitResult = preVisit(startingIndex);
+                if (false == preVisitResult)
                 {
                     return false;
                 }
             }
-
-            foreach (var e in g.GetEdgesFrom(startingIndex))
+            foreach (Edge e in g.GetEdgesFrom(startingIndex))
             {
-                if (!visited[e.To])
+                if (null != visitEdge)
                 {
-                    if (visitEdge != null)
+                    bool visitEdgeResult = visitEdge(e);
+                    if (false == visitEdgeResult)
                     {
-                        bool? tmp = visitEdge(e);
-                        if (tmp.HasValue == false)
-                        {
-                            continue;
-                        }
-                        if (tmp.Value == false)
-                        {
-                            return false;
-                        }
-                    }
-                    bool? ret = g.DFS(preVisit, postVisit, visitEdge, e.To, visited);
-                    if (ret.HasValue)
-                    {
-                        if (ret.Value == false)
-                        {
-                            return false;
-                        }
-                    }
+                        continue;
+                    }                    
                 }
-            }
-
-            if (postVisit != null)
-            {
-                bool? tmp = postVisit(startingIndex);
-                if (tmp.HasValue == false)
-                {
-                    return null;
-                }
-                if (tmp.Value == false)
+                if (false == g.RecursiveDFS(preVisit, postVisit, visitEdge, e.To, visited))
                 {
                     return false;
                 }
             }
-
+            if (null != postVisit)
+            {
+                bool postVisitResult = postVisit(startingIndex);
+                if (false == postVisitResult)
+                {
+                    return false;
+                }
+            }
             return true;
         }
+
+
     }
 }

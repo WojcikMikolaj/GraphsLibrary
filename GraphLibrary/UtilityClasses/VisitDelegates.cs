@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace GraphLibrary.UtilityClasses
 {
-    public delegate bool? VisitVertexFunction(int ID);
-    public delegate bool? VisitEdgeFunction(Edge e);
+    public delegate bool VisitVertexFunction(int ID);
+    public delegate bool VisitEdgeFunction(Edge e);
 }

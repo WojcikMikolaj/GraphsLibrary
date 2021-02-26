@@ -1,12 +1,15 @@
-﻿using System;
+﻿using GraphLibrary.UtilityClasses;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLibrary.GraphExtenders.SearchExtenders
 {
-    class BFSExtender
+    public static class BFSExtender
     {
+        //public static bool BFS(this Graph g, VisitVertexFunction preVisit, VisitVertexFunction postVisit, VisitEdgeFunction visitEdge,
+        // int startingIndex, out bool[] visited)
+        //{            
+          
+        //}
     }
 }
