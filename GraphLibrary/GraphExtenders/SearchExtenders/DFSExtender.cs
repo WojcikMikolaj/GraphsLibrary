@@ -61,13 +61,13 @@ namespace GraphLibrary.GraphExtenders.SearchExtenders
                             return false;
                         }
                     }
-                }
-                bool? ret = g.DFS(preVisit, postVisit, visitEdge, e.To, visited);
-                if (ret.HasValue)
-                {
-                    if (ret.Value == false)
+                    bool? ret = g.DFS(preVisit, postVisit, visitEdge, e.To, visited);
+                    if (ret.HasValue)
                     {
-                        return false;
+                        if (ret.Value == false)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
