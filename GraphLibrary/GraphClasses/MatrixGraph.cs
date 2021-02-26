@@ -35,6 +35,10 @@ namespace GraphLibrary
             else
             {
                 edgesTab[e.From][e.To] = new Edge(e);
+                if(!directed)
+                {
+                    edgesTab[e.To][e.From] = new Edge(e.To,e.From,e.Weight);
+                }
                 base.AddEdge(from, to, weight);
                 return true;
             }
@@ -48,6 +52,10 @@ namespace GraphLibrary
                 if (!checkWeight || edge.Weight == e.Weight)
                 {
                     edgesTab[e.From][e.To] = null;
+                    if(!directed)
+                    {
+                        edgesTab[e.To][e.From] = null;
+                    }
                     base.DeleteEdge(e, checkWeight);
                     return true;
                 }
