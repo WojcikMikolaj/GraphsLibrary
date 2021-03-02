@@ -22,7 +22,11 @@ namespace GraphLibrary
 
         public override bool AddEdge(Edge e)
         {
-            return AddEdge(e.From, e.To, e.Weight);
+            if (null != e)
+            {
+                return AddEdge(e.From, e.To, e.Weight);
+            }
+            return false;
         }
 
         public override bool AddEdge(int from, int to, double weight = 0)
@@ -35,9 +39,9 @@ namespace GraphLibrary
             else
             {
                 edgesTab[e.From][e.To] = new Edge(e);
-                if(!directed)
+                if (!directed)
                 {
-                    edgesTab[e.To][e.From] = new Edge(e.To,e.From,e.Weight);
+                    edgesTab[e.To][e.From] = new Edge(e.To, e.From, e.Weight);
                 }
                 base.AddEdge(from, to, weight);
                 return true;
@@ -46,13 +50,13 @@ namespace GraphLibrary
 
         public override bool DeleteEdge(Edge e, bool checkWeight = false)
         {
-            Edge edge = edgesTab[e.From][e.To];
             if (e != null)
             {
+                Edge edge = edgesTab[e.From][e.To];
                 if (!checkWeight || edge.Weight == e.Weight)
                 {
                     edgesTab[e.From][e.To] = null;
-                    if(!directed)
+                    if (!directed)
                     {
                         edgesTab[e.To][e.From] = null;
                     }
