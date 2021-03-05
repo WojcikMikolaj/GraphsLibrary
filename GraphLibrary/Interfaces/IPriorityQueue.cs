@@ -10,8 +10,9 @@ namespace GraphLibrary.Interfaces
        where T : new()
     {
         bool Concatenate(IPriorityQueue<T> priorityQueue);
-        void Insert(T newElement);
+        INode<T> Insert(T newElement);
         (bool HasValue, T value) GetMinimum();
         (bool HasValue, T value) ExtractMinimum();
+        public bool IsEmpty();
     }
 }

@@ -1,7 +1,8 @@
 ﻿using GraphLibrary.ExceptionClasses;
 using System;
 using System.Collections.Generic;
-using static GraphLibrary.ContainerClasses.PairingHeap;
+using GraphLibrary.ContainerClasses;
+using GraphLibrary.UtilityClasses;
 
 namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
 {
@@ -22,15 +23,15 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
             }
             tab[startingVertex] = (0, -1);
 
-            PairingHeap<paths_struct> queue = new PairingHeap<paths_struct>((x, y) => x.distance > y.distance);
-            List<Node<paths_struct>> lista = new List<Node<paths_struct>>();
+            PairingHeap<PathsStruct> queue = new PairingHeap<PathsStruct>((x, y) => x.distance > y.distance);
+            List<Node<PathsStruct>> lista = new List<Node<PathsStruct>>();
 
             for (int i = 0; i < g.VerticesCount; i++)
             {
-                lista.Add(queue.Insert(new paths_struct { ID = i, distance = double.MaxValue }));
+                lista.Add((Node<PathsStruct>)queue.Insert(new PathsStruct { ID = i, distance = double.MaxValue }));
             }
 
-            while (!queue.isEmpty())
+            while (!queue.IsEmpty())
             {
                 var v = queue.ExtractMinimum();
                 foreach (var e in g.GetEdgesFrom(v.value.ID))
@@ -42,7 +43,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
                     if (tab[e.To].distance > tab[e.From].distance + e.Weight)
                     {
                         tab[e.To] = (tab[e.From].distance + e.Weight, e.From);
-                        queue.DecreaseKey(lista[e.To], new paths_struct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });
+                        queue.DecreaseKey(lista[e.To], new PathsStruct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });
                     }
                 }
             }

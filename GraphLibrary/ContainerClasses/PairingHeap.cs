@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 namespace GraphLibrary.ContainerClasses
 {
-    public class Node<T>
+    public class Node<T> : INode<T>
+        where T : new()
     {
         public T Value { get; internal set; }
         public Node<T> child { get; internal set; }
@@ -40,7 +41,7 @@ namespace GraphLibrary.ContainerClasses
             this.compareFunctor = compareFunctor;
         }
 
-        public bool isEmpty()
+        public bool IsEmpty()
         {
             return head == null;
         }
@@ -94,24 +95,29 @@ namespace GraphLibrary.ContainerClasses
             head = priorityQueue.head;
         }
 
-        public void Insert(T elem)
+        public INode<T> Insert(T elem)
         {
             Node<T> newNode = new Node<T>(elem);
             Concatenate(new PairingHeap<T>(newNode, compareFunctor));
+            return newNode;
         }
 
         public (bool HasValue, T value) GetMinimum()
         {
-            return (head != null ? true : false, head != null ? head.Value : new T());
+            return (head != null, head != null ? head.Value : new T());
         }
 
         public (bool HasValue, T value) ExtractMinimum()
         {
-            if (head == null)
+            if (null == head)
+            {
                 return (false, new T());
+            }
+
             List<PairingHeap<T>> list = new List<PairingHeap<T>>();
             Node<T> prevHead = head;
             Node<T> pom = head.child;
+
             while (pom != head)
             {
                 PairingHeap<T> first = new PairingHeap<T>(pom, compareFunctor);
@@ -144,7 +150,7 @@ namespace GraphLibrary.ContainerClasses
             }
             prevHead.child = null;
             prevHead.right = null;
-            if (list.Count == 0)
+            if (0 == list.Count)
             {
                 head = null;
                 return (true, prevHead.Value);
@@ -155,20 +161,28 @@ namespace GraphLibrary.ContainerClasses
 
         public void DecreaseKey(Node<T> node, T newValue)
         {
-            if (node == null)
+            if (null == node)
+            {
                 throw new ArgumentException("node is null");
+            }
+
             if (compareFunctor(newValue, node.Value))
+            {
                 throw new ArgumentException("newValue must be lesser than node.Value");
+            }
+
             Node<T> pom = node;
             if (node == head)
             {
                 node.Value = newValue;
                 return;
             }
+
             while (!pom.pointsToParent)
             {
                 pom = pom.right;
             }
+
             pom = pom.right;
             if (pom.child == node)
             {
@@ -190,16 +204,19 @@ namespace GraphLibrary.ContainerClasses
                 }
                 return;
             }
+
             pom = pom.child;
             while (pom.right != node)
             {
                 pom = pom.right;
             }
+
             pom.right = node.right;
             if (node.pointsToParent)
             {
                 pom.pointsToParent = true;
             }
+
             node.pointsToParent = false;
             node.right = null;
             node.Value = newValue;
