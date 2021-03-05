@@ -10,7 +10,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
     {
         public static (double distance, int previous)[] Dijkstra(this Graph g, int startingVertex)
         {
-            if (startingVertex < 0 || startingVertex >= g.EdgesCount)
+            if (startingVertex < 0 || startingVertex >= g.VerticesCount)
             {
                 throw new IndexOutOfRangeException("startingIndex must be between (inclusive) 0 and VerticesCount-1");
             }
@@ -31,6 +31,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
                 lista.Add((Node<PathsStruct>)queue.Insert(new PathsStruct { ID = i, distance = double.MaxValue }));
             }
 
+            
             while (!queue.IsEmpty())
             {
                 var v = queue.ExtractMinimum();
@@ -43,7 +44,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
                     if (tab[e.To].distance > tab[e.From].distance + e.Weight)
                     {
                         tab[e.To] = (tab[e.From].distance + e.Weight, e.From);
-                        queue.DecreaseKey(lista[e.To], new PathsStruct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });
+                        queue.DecreaseKey(lista[e.To], new PathsStruct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });                         
                     }
                 }
             }

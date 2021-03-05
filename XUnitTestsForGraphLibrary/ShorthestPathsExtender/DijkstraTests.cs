@@ -13,7 +13,7 @@ namespace XUnitTestsForGraphLibrary.ShorthestPathsExtender
         public void SimpleDijkstraTest(bool directed)
         {
             Random random = new Random();
-            Graph g = new MatrixGraph(6, directed);
+            Graph g = new MatrixGraph(7, directed);
             g.AddEdge(0, 1, 5);
             g.AddEdge(0, 2, 3);
             g.AddEdge(0, 3, 0);
