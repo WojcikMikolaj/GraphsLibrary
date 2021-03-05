@@ -9,13 +9,13 @@ namespace GraphLibrary.ContainerClasses
     {
         public T Value { get; internal set; }
         public Node<T> child { get; internal set; }
-        public bool pointsToParent { get; internal set; }
+        public bool last { get; internal set; }
         public Node<T> right { get; internal set; }
         internal Node(T val)
         {
             Value = val;
             child = right = null;
-            pointsToParent = false;
+            last = true;
         }
     }
 
@@ -58,41 +58,57 @@ namespace GraphLibrary.ContainerClasses
 
         private void Concatenate(PairingHeap<T> priorityQueue)
         {
-            if (null == head)
-            {
-                head = priorityQueue.head;
-                return;
-            }
             if (null == priorityQueue || null == priorityQueue.head)
             {
                 return;
             }
+
+            if (null == head)
+            {
+                head = priorityQueue.head;
+                priorityQueue = null;
+                return;
+            }
+
             if (!compareFunctor(head.Value, priorityQueue.head.Value))
             {
-                if (null == head.child)
-                {
-                    head.child = priorityQueue.head;
-                    priorityQueue.head.right = head;
-                    priorityQueue.head.pointsToParent = true;
-                }
-                else
-                {
-                    priorityQueue.head.right = head.child;
-                    head.child = priorityQueue.head;
-                }
-                return;
+                AddChildNode(priorityQueue.head);
             }
-            if (null == priorityQueue.head.child)
+            else
             {
-                priorityQueue.head.child = head;
-                head.right = priorityQueue.head.child;
-                head.pointsToParent = true;
+                priorityQueue.AddChildNode(head);
                 head = priorityQueue.head;
+            }
+            priorityQueue = null;
+        }
+
+        private void AddChildNode(Node<T> newChild)
+        {
+            if (null == newChild)
+            {
                 return;
             }
-            head.right = priorityQueue.head.child;
-            priorityQueue.head.child = head;
-            head = priorityQueue.head;
+
+            if (null == head)
+            {
+                head = newChild;
+                return;
+            }
+
+            newChild.last = true;
+            newChild.right = null;
+
+            if (null == head.child)
+            {
+                head.child = newChild;
+                return;
+            }
+
+            var pom = head.child;
+            newChild.right = pom;
+            newChild.last = false;
+            head.child = newChild;
+            
         }
 
         public INode<T> Insert(T elem)
@@ -111,116 +127,40 @@ namespace GraphLibrary.ContainerClasses
         {
             if (null == head)
             {
-                return (false, new T());
+                return (false, default(T));
             }
 
-            List<PairingHeap<T>> list = new List<PairingHeap<T>>();
-            Node<T> prevHead = head;
-            Node<T> pom = head.child;
+            T returnValue = head.Value;
 
-            while (pom != head)
-            {
-                PairingHeap<T> first = new PairingHeap<T>(pom, compareFunctor);
-
-                if (pom.pointsToParent)
-                {
-                    list.Add(first);
-                    break;
-                }
-
-                Node<T> pom2 = pom;
-                pom = pom.right;
-                pom2.right = null;
-
-                PairingHeap<T> second = new PairingHeap<T>(pom, compareFunctor);
-                first.Concatenate(second);
-                list.Add(first);
-                pom2 = pom;
-                pom = pom.right;
-                pom2.right = null;
-            }
-            while (list.Count > 1)
-            {
-                PairingHeap<T> first = list[0];
-                list.RemoveAt(0);
-                PairingHeap<T> second = list[0];
-                list.RemoveAt(0);
-                first.Concatenate(second);
-                list.Add(first);
-            }
-            prevHead.child = null;
-            prevHead.right = null;
-            if (0 == list.Count)
+            if (null == head.child)
             {
                 head = null;
-                return (true, prevHead.Value);
+                return (true, returnValue);
             }
-            head = list[0].head;
-            return (true, prevHead.Value);
+
+            head = head.child;
+            head.last = true;            
+            Node<T> nodeToMerge = head.right;
+            head.right = null;
+            while (null != nodeToMerge)
+            {
+                var mergedNode = nodeToMerge;
+                nodeToMerge = nodeToMerge.right;
+                mergedNode.right = null;
+                mergedNode.last = true;
+                PairingHeap<T> queueToMerge = new PairingHeap<T>(mergedNode, compareFunctor);                
+                Concatenate(queueToMerge);                               
+            }
+
+            return (true, returnValue);
         }
 
         public void DecreaseKey(Node<T> node, T newValue)
         {
-            if (null == node)
-            {
-                throw new ArgumentException("node is null");
-            }
-
             if (compareFunctor(newValue, node.Value))
             {
-                throw new ArgumentException("newValue must be lesser than node.Value");
-            }
-
-            Node<T> pom = node;
-            if (node == head)
-            {
                 node.Value = newValue;
-                return;
             }
-
-            while (!pom.pointsToParent)
-            {
-                pom = pom.right;
-            }
-
-            pom = pom.right;
-            if (pom.child == node)
-            {
-                if (node.pointsToParent)
-                {
-                    pom.child = null;
-                    node.pointsToParent = false;
-                    node.right = null;
-                    node.Value = newValue;
-                    this.Concatenate(new PairingHeap<T>(node, compareFunctor));
-                }
-                else
-                {
-                    pom.child = node.right;
-                    node.pointsToParent = false;
-                    node.right = null;
-                    node.Value = newValue;
-                    this.Concatenate(new PairingHeap<T>(node, compareFunctor));
-                }
-                return;
-            }
-
-            pom = pom.child;
-            while (pom.right != node)
-            {
-                pom = pom.right;
-            }
-
-            pom.right = node.right;
-            if (node.pointsToParent)
-            {
-                pom.pointsToParent = true;
-            }
-
-            node.pointsToParent = false;
-            node.right = null;
-            node.Value = newValue;
-            this.Concatenate(new PairingHeap<T>(node, compareFunctor));
         }
     }
 }
