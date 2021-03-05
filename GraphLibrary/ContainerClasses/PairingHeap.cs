@@ -11,10 +11,11 @@ namespace GraphLibrary.ContainerClasses
         public Node<T> child { get; internal set; }
         public bool last { get; internal set; }
         public Node<T> right { get; internal set; }
+        public Node<T> left { get; internal set; }
         internal Node(T val)
         {
             Value = val;
-            child = right = null;
+            child = left = right = null;
             last = true;
         }
     }
@@ -70,14 +71,17 @@ namespace GraphLibrary.ContainerClasses
                 return;
             }
 
-            if (!compareFunctor(head.Value, priorityQueue.head.Value))
+            if (head != priorityQueue.head)
             {
-                AddChildNode(priorityQueue.head);
-            }
-            else
-            {
-                priorityQueue.AddChildNode(head);
-                head = priorityQueue.head;
+                if (!compareFunctor(head.Value, priorityQueue.head.Value))
+                {
+                    AddChildNode(priorityQueue.head);
+                }
+                else
+                {
+                    priorityQueue.AddChildNode(head);
+                    head = priorityQueue.head;
+                }
             }
             priorityQueue = null;
         }
@@ -97,6 +101,7 @@ namespace GraphLibrary.ContainerClasses
 
             newChild.last = true;
             newChild.right = null;
+            newChild.left = null;
 
             if (null == head.child)
             {
@@ -106,9 +111,11 @@ namespace GraphLibrary.ContainerClasses
 
             var pom = head.child;
             newChild.right = pom;
+            pom.left = newChild;
+            newChild.left = head;
             newChild.last = false;
             head.child = newChild;
-            
+
         }
 
         public INode<T> Insert(T elem)
@@ -139,17 +146,19 @@ namespace GraphLibrary.ContainerClasses
             }
 
             head = head.child;
-            head.last = true;            
+            head.last = true;
             Node<T> nodeToMerge = head.right;
             head.right = null;
+            head.left = null;
             while (null != nodeToMerge)
             {
                 var mergedNode = nodeToMerge;
                 nodeToMerge = nodeToMerge.right;
                 mergedNode.right = null;
+                mergedNode.left = null;
                 mergedNode.last = true;
-                PairingHeap<T> queueToMerge = new PairingHeap<T>(mergedNode, compareFunctor);                
-                Concatenate(queueToMerge);                               
+                PairingHeap<T> queueToMerge = new PairingHeap<T>(mergedNode, compareFunctor);
+                Concatenate(queueToMerge);
             }
 
             return (true, returnValue);
@@ -157,9 +166,36 @@ namespace GraphLibrary.ContainerClasses
 
         public void DecreaseKey(Node<T> node, T newValue)
         {
-            if (compareFunctor(newValue, node.Value))
+            if (!compareFunctor(newValue, node.Value))
             {
                 node.Value = newValue;
+                if (null != node.left)
+                {
+                    if (node.left.child != node)
+                    {
+                        node.left.right = node.right;
+                        if (null == node.right)
+                        {
+                            node.left.last = true;
+                        }
+                    }
+                    else
+                    {
+                        node.left.child = node.right;
+                    }
+                }
+                if (null != node.right)
+                {
+                    node.right.left = node.left;
+                    if (null!=node.left && node.left.child == node)
+                    {
+                        node.left.child = node.right;
+                    }
+                }
+                node.left = null;
+                node.right = null;
+                node.last = true;
+                Concatenate(new PairingHeap<T>(node, compareFunctor));
             }
         }
     }
