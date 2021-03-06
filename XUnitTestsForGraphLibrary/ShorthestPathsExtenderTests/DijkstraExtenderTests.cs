@@ -5,7 +5,7 @@ using GraphLibrary.GraphExtenders.ShortestPathsExtender;
 
 namespace XUnitTestsForGraphLibrary.ShorthestPathsExtender
 {
-    public class DijkstraTests
+    public class DijkstraExtenderTests
     {
         [Theory]
         [InlineData(true)]
