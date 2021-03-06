@@ -3,7 +3,7 @@ using Xunit;
 using GraphLibrary;
 using GraphLibrary.GraphExtenders.ShortestPathsExtender;
 
-namespace XUnitTestsForGraphLibrary.ShorthestPathsExtender
+namespace XUnitTestsForGraphLibrary.ShorthestPathsExtenderTests
 {
     public class BellmanFordExtenderTests
     {
@@ -12,7 +12,6 @@ namespace XUnitTestsForGraphLibrary.ShorthestPathsExtender
         [InlineData(false)]
         public void SimpleBellmanFordTest(bool directed)
         {
-            Random random = new Random();
             Graph g = new MatrixGraph(7, directed);
             g.AddEdge(0, 1, 5);
             g.AddEdge(0, 2, 3);
