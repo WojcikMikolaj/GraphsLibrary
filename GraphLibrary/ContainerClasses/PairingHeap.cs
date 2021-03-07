@@ -137,6 +137,7 @@ namespace GraphLibrary.ContainerClasses
                 return (false, default(T));
             }
 
+            var prevHead = head;
             T returnValue = head.Value;
 
             if (null == head.child)
@@ -146,10 +147,17 @@ namespace GraphLibrary.ContainerClasses
             }
 
             head = head.child;
+
+            prevHead.last = true;
+            prevHead.child = null;
+            prevHead.left = null;
+            prevHead.right = null;
+
             head.last = true;
             Node<T> nodeToMerge = head.right;
             head.right = null;
             head.left = null;
+
             while (null != nodeToMerge)
             {
                 var mergedNode = nodeToMerge;
