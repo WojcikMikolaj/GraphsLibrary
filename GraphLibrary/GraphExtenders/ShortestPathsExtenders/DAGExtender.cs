@@ -1,9 +1,5 @@
 ﻿using GraphLibrary.ExceptionClasses;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
 {
@@ -17,7 +13,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
         /// <returns></returns>
         public static (double distance, int previous)[] DAG(this Graph g, int startingVertex)
         {
-            if(!g.Directed)
+            if (!g.Directed)
             {
                 throw new WrongGraphException("Graph must be directed");
             }

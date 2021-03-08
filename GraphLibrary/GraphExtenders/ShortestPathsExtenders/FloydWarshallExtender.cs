@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
+﻿namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
 {
     public static class FloydWarshallExtender
     {
@@ -24,7 +18,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
             for (int i = 0; i < g.VerticesCount; i++)
             {
                 tab[i][i] = 0;
-                foreach(Edge e in g.GetEdgesFrom(i))
+                foreach (Edge e in g.GetEdgesFrom(i))
                 {
                     tab[e.From][e.To] = e.Weight;
                 }

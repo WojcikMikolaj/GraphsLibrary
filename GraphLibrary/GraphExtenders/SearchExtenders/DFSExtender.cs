@@ -41,7 +41,7 @@ namespace GraphLibrary.GraphExtenders.SearchExtenders
                     if (false == visitEdgeResult)
                     {
                         continue;
-                    }                    
+                    }
                 }
                 if (false == g.RecursiveDFS(preVisit, postVisit, visitEdge, e.To, visited))
                 {

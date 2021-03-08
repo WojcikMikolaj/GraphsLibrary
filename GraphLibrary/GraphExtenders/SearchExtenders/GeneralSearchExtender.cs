@@ -1,7 +1,6 @@
 ﻿using GraphLibrary.Interfaces;
 using GraphLibrary.UtilityClasses;
 using System;
-using System.Collections.Generic;
 
 namespace GraphLibrary.GraphExtenders.SearchExtenders
 {

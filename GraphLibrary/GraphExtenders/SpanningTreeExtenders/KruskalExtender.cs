@@ -1,10 +1,5 @@
 ﻿using GraphLibrary.DataStructuresClasses;
 using GraphLibrary.ExceptionClasses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
 {
@@ -40,7 +35,7 @@ namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
 
                 var e = queue.ExtractMinimum();
 
-                if (unionFind.FindParent(e.value.From)!=unionFind.FindParent(e.value.To))
+                if (unionFind.FindParent(e.value.From) != unionFind.FindParent(e.value.To))
                 {
                     tree.AddEdge(e.value);
                     unionFind.Union(e.value.From, e.value.To);
