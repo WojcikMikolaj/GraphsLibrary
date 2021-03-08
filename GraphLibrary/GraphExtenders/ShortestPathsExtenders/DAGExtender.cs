@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
+namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
 {
     public static class DAGExtender
     {

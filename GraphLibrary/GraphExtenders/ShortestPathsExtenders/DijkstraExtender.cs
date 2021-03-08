@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GraphLibrary.ContainerClasses;
 using GraphLibrary.UtilityClasses;
 
-namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
+namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
 {
     public static class DijkstraExtender
     {
