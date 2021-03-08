@@ -20,11 +20,7 @@ namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
             Graph tree = g.IsolatedGraph(g.Directed);
             PairingHeap<Edge> queue = new PairingHeap<Edge>((x, y) => x.Weight > y.Weight);
 
-            int[] tab = new int[g.VerticesCount];
-            for (int i = 0; i < g.VerticesCount; i++)
-            {
-                tab[i] = i;
-            }
+            UnionFind unionFind = new UnionFind(g.VerticesCount);
 
             for (int i = 0; i < g.VerticesCount; i++)
             {
@@ -44,17 +40,10 @@ namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
 
                 var e = queue.ExtractMinimum();
 
-                if (tab[e.value.From] != tab[e.value.To])
+                if (unionFind.FindParent(e.value.From)!=unionFind.FindParent(e.value.To))
                 {
                     tree.AddEdge(e.value);
-                    if (e.value.From > e.value.To)
-                    {
-                        tab[e.value.From] = tab[e.value.To];
-                    }
-                    else
-                    {
-                        tab[e.value.To] = tab[e.value.From];
-                    }
+                    unionFind.Union(e.value.From, e.value.To);
                     c++;
                 }
             }
