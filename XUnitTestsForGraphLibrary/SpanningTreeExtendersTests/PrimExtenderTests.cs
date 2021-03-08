@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
 using GraphLibrary.GraphExtenders.SpanningTreeExtenders;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary.SpanningTreeExtendersTests
 {

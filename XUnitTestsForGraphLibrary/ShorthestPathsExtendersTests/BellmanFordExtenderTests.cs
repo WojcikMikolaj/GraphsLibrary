@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
 using GraphLibrary.GraphExtenders.ShortestPathsExtenders;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
 {
@@ -21,7 +20,7 @@ namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
             g.AddEdge(2, 4, 2);
             g.AddEdge(2, 5, 1);
             g.AddEdge(3, 2, 2);
-            g.AddEdge(3, 6, 15);            
+            g.AddEdge(3, 6, 15);
             g.AddEdge(4, 6, 3);
             g.AddEdge(5, 4, 12);
             var result = g.BellmanFord(0);

@@ -1,7 +1,6 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
 using GraphLibrary.GraphExtenders.ShortestPathsExtenders;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
 {

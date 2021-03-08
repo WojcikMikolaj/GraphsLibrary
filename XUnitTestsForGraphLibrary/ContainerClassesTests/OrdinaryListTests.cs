@@ -1,7 +1,5 @@
-﻿using System;
+﻿using GraphLibrary.DataStructuresClasses;
 using Xunit;
-using GraphLibrary;
-using GraphLibrary.DataStructuresClasses;
 
 namespace XUnitTestsForGraphLibrary
 {
@@ -12,13 +10,13 @@ namespace XUnitTestsForGraphLibrary
         public void OrdinaryListSimpleTest(int n)
         {
             OrdinaryList<int> list = new OrdinaryList<int>();
-            for(int i=0; i<n; i++)
+            for (int i = 0; i < n; i++)
             {
                 list.Push(i);
             }
             for (int i = 0; i < n; i++)
             {
-                Assert.False(list.IsEmpty());   
+                Assert.False(list.IsEmpty());
 
                 int num = list.Peek();
                 Assert.Equal(i, num);
