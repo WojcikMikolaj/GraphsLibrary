@@ -1,6 +1,5 @@
 ﻿using GraphLibrary.DataStructuresClasses;
 using GraphLibrary.ExceptionClasses;
-using System;
 using System.Collections.Generic;
 
 namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
@@ -23,7 +22,7 @@ namespace GraphLibrary.GraphExtenders.SpanningTreeExtenders
 
             for (int i = 0; i < g.VerticesCount; i++)
             {
-                heaps[i] = new PairingHeap<Edge>((x,y)=>x.Weight>y.Weight);
+                heaps[i] = new PairingHeap<Edge>((x, y) => x.Weight > y.Weight);
                 activeHeaps.Add(i);
                 foreach (Edge e in g.GetEdgesFrom(i))
                 {

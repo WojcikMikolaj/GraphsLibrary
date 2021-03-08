@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GraphLibrary.DataStructuresClasses;
+using System.Collections.Generic;
 
 namespace GraphLibrary
 {
@@ -86,5 +87,68 @@ namespace GraphLibrary
         public abstract Graph ReversedGraph();
 
         public abstract Graph NewGraphOfSameType(int verticesCount, bool directed = false);
+
+        // This method assumes that graphs are labbeled <=> isomorphism of graphs is not enough 
+        public bool Equals(Graph other)
+        {
+            if (this.Directed != other.Directed)
+            {
+                return false;
+            }
+
+            if (this.VerticesCount != other.VerticesCount)
+            {
+                return false;
+            }
+
+            if (this.EdgesCount != other.EdgesCount)
+            {
+                return false;
+            }
+
+            return this.CompareVerticesAndEdges(other);
+        }
+
+        private bool CompareVerticesAndEdges(Graph other)
+        {
+            EdgesList firstGraphEdges = new EdgesList();
+            EdgesList secondGraphEdges = new EdgesList();
+
+            for (int i = 0; i < this.VerticesCount; i++)
+            {
+                if (this.GetInDegree(i) != other.GetInDegree(i))
+                {
+                    return false;
+                }
+
+                if (this.GetOutDegree(i) != other.GetOutDegree(i))
+                {
+                    return false;
+                }
+
+                foreach (Edge e in this.GetEdgesFrom(i))
+                {
+                    firstGraphEdges.Push(e);
+                }
+
+                foreach (Edge e in other.GetEdgesFrom(i))
+                {
+                    secondGraphEdges.Push(e);
+                }
+            }
+
+            while (!firstGraphEdges.IsEmpty())
+            {
+                Edge fromFirst = firstGraphEdges.Pop();
+                Edge fromSecond = secondGraphEdges.Pop();
+
+                if (!fromFirst.Equals(fromSecond))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
