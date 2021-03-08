@@ -52,5 +52,10 @@
             Weight = newWeight;
             return true;
         }
+
+        public bool Equals(Edge other)
+        {
+            return this.From == other.From && this.To == other.To && this.Weight == other.Weight;
+        }
     }
 }
