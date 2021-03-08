@@ -1,7 +1,7 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
 using GraphLibrary.GraphExtenders.SearchExtenders;
+using System;
+using Xunit;
 
 
 namespace XUnitTestsForGraphLibrary

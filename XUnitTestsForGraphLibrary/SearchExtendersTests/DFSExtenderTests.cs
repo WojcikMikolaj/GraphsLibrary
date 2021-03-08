@@ -1,7 +1,7 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
 using GraphLibrary.GraphExtenders.SearchExtenders;
+using System;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary
 {
@@ -37,10 +37,10 @@ namespace XUnitTestsForGraphLibrary
             Graph invGraph = g.ReversedGraph();
             invGraph.DFS(null, null, null, 0, out invTab);
             Assert.True(invTab[0]);
-            for(int i=1; i<invTab.Length; i++)
+            for (int i = 1; i < invTab.Length; i++)
             {
                 Assert.Equal(!value, invTab[i]);
             }
-        }             
+        }
     }
 }

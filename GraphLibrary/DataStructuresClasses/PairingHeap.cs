@@ -1,8 +1,7 @@
 ﻿using GraphLibrary.Interfaces;
 using System;
-using System.Collections.Generic;
 
-namespace GraphLibrary.ContainerClasses
+namespace GraphLibrary.DataStructuresClasses
 {
     public class Node<T> : INode<T>
         where T : new()
@@ -195,7 +194,7 @@ namespace GraphLibrary.ContainerClasses
                 if (null != node.right)
                 {
                     node.right.left = node.left;
-                    if (null!=node.left && node.left.child == node)
+                    if (null != node.left && node.left.child == node)
                     {
                         node.left.child = node.right;
                     }

@@ -1,9 +1,8 @@
-﻿using System;
+﻿using GraphLibrary;
+using GraphLibrary.GraphExtenders.ShortestPathsExtenders;
 using Xunit;
-using GraphLibrary;
-using GraphLibrary.GraphExtenders.ShortestPathsExtender;
 
-namespace XUnitTestsForGraphLibrary.ShorthestPathsExtenderTests
+namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
 {
     public class FloydWarshallExtenderTests
     {

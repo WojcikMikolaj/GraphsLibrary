@@ -1,10 +1,10 @@
-﻿using GraphLibrary.ExceptionClasses;
+﻿using GraphLibrary.DataStructuresClasses;
+using GraphLibrary.ExceptionClasses;
+using GraphLibrary.UtilityClasses;
 using System;
 using System.Collections.Generic;
-using GraphLibrary.ContainerClasses;
-using GraphLibrary.UtilityClasses;
 
-namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
+namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders
 {
     public static class DijkstraExtender
     {
@@ -31,7 +31,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
                 lista.Add((Node<PathsStruct>)queue.Insert(new PathsStruct { ID = i, distance = double.MaxValue }));
             }
 
-            
+
             while (!queue.IsEmpty())
             {
                 var v = queue.ExtractMinimum();
@@ -44,7 +44,7 @@ namespace GraphLibrary.GraphExtenders.ShortestPathsExtender
                     if (tab[e.To].distance > tab[e.From].distance + e.Weight)
                     {
                         tab[e.To] = (tab[e.From].distance + e.Weight, e.From);
-                        queue.DecreaseKey(lista[e.To], new PathsStruct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });                         
+                        queue.DecreaseKey(lista[e.To], new PathsStruct { ID = lista[e.To].Value.ID, distance = tab[e.From].distance + e.Weight });
                     }
                 }
             }

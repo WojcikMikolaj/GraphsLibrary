@@ -1,16 +1,15 @@
-﻿using System;
+﻿using GraphLibrary;
+using GraphLibrary.GraphExtenders.ShortestPathsExtenders;
 using Xunit;
-using GraphLibrary;
-using GraphLibrary.GraphExtenders.ShortestPathsExtender;
 
-namespace XUnitTestsForGraphLibrary.ShorthestPathsExtenderTests
+namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
 {
-    public class DijkstraExtenderTests
+    public class BellmanFordExtenderTests
     {
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void SimpleDijkstraTest(bool directed)
+        public void SimpleBellmanFordTest(bool directed)
         {
             Graph g = new MatrixGraph(7, directed);
             g.AddEdge(0, 1, 5);
@@ -21,10 +20,10 @@ namespace XUnitTestsForGraphLibrary.ShorthestPathsExtenderTests
             g.AddEdge(2, 4, 2);
             g.AddEdge(2, 5, 1);
             g.AddEdge(3, 2, 2);
-            g.AddEdge(3, 6, 15);            
+            g.AddEdge(3, 6, 15);
             g.AddEdge(4, 6, 3);
             g.AddEdge(5, 4, 12);
-            var result = g.Dijkstra(0);
+            var result = g.BellmanFord(0);
             Assert.Equal(0, result[0].distance);
             Assert.Equal(5, result[1].distance);
             Assert.Equal(2, result[2].distance);

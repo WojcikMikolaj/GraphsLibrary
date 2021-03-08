@@ -1,8 +1,8 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
+﻿using GraphLibrary;
+using GraphLibrary.DataStructuresClasses;
 using GraphLibrary.GraphExtenders.SearchExtenders;
-using GraphLibrary.ContainerClasses;
+using System;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary
 {

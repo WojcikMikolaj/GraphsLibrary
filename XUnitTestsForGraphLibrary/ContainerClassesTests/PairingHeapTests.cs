@@ -1,8 +1,7 @@
-﻿using System;
-using Xunit;
-using GraphLibrary;
-using GraphLibrary.ContainerClasses;
+﻿using GraphLibrary.DataStructuresClasses;
+using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace XUnitTestsForGraphLibrary.ContainerClassesTests
 {

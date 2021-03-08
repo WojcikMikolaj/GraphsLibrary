@@ -1,6 +1,5 @@
-﻿using System;
+﻿using GraphLibrary;
 using Xunit;
-using GraphLibrary;
 
 namespace XUnitTestsForGraphLibrary
 {
@@ -65,7 +64,7 @@ namespace XUnitTestsForGraphLibrary
         {
             Graph graph = new MatrixGraph(10, true);
             graph.AddEdge(0, 9, 10);
-            graph.AddEdge(2, 0, 5);            
+            graph.AddEdge(2, 0, 5);
             Graph reversedGraph = graph.ReversedGraph();
             Assert.Equal(1, reversedGraph.GetOutDegree(9));
             Assert.Equal(1, reversedGraph.GetInDegree(2));
