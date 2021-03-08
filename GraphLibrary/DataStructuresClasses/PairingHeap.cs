@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace GraphLibrary.ContainerClasses
+namespace GraphLibrary.DataStructuresClasses
 {
     public class Node<T> : INode<T>
         where T : new()

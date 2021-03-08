@@ -1,7 +1,7 @@
 ﻿using GraphLibrary.ExceptionClasses;
 using System;
 using System.Collections.Generic;
-using GraphLibrary.ContainerClasses;
+using GraphLibrary.DataStructuresClasses;
 using GraphLibrary.UtilityClasses;
 
 namespace GraphLibrary.GraphExtenders.ShortestPathsExtenders

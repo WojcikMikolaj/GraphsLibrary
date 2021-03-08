@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraphLibrary.ContainerClasses
+namespace GraphLibrary.DataStructuresClasses
 {
     public class EdgesList : OrdinaryList<Edge>, IEdgeCollection
     {

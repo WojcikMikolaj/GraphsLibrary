@@ -2,7 +2,7 @@
 using Xunit;
 using GraphLibrary;
 using GraphLibrary.GraphExtenders.SearchExtenders;
-using GraphLibrary.ContainerClasses;
+using GraphLibrary.DataStructuresClasses;
 
 namespace XUnitTestsForGraphLibrary
 {

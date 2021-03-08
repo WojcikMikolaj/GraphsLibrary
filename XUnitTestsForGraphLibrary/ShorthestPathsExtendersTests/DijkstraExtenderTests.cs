@@ -3,7 +3,7 @@ using Xunit;
 using GraphLibrary;
 using GraphLibrary.GraphExtenders.ShortestPathsExtenders;
 
-namespace XUnitTestsForGraphLibrary.ShorthestPathsExtenderTests
+namespace XUnitTestsForGraphLibrary.ShorthestPathsExtendersTests
 {
     public class DijkstraExtenderTests
     {
