@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GraphLibrary
@@ -100,14 +101,7 @@ namespace GraphLibrary
 
         public override Graph Clone()
         {
-            MatrixGraph copy = new MatrixGraph(this.verticesCount, directed);
-            degrees.CopyTo(copy.degrees, 0);
-            copy.EdgesCount = EdgesCount;
-            for(int i=0; i<verticesCount; i++)
-            {
-                edgesTab[i].CopyTo(copy.edgesTab[i], 0);
-            }
-            return copy;
+            throw new NotImplementedException();
         }
 
         public override Graph IsolatedGraph(bool directed)
