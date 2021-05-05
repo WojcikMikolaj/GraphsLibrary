@@ -2,6 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Authors>Mikołaj Wójcik (Mikwk)</Authors>
+    <Company></Company>
+    <Copyright>Mikwk</Copyright>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/WojcikMikolaj/GraphsLibrary</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/WojcikMikolaj/GraphsLibrary</RepositoryUrl>
+    <RepositoryType>Github repository</RepositoryType>
+    <Description>Class library that provides classes which represents graphs and implements most popular graph algorithms.</Description>
+    <PackageTags>graphs, graphs-theory, graphs-algorithms</PackageTags>
+    <Product>Mikwk.GraphLibrary</Product>
+    <PackageId>Mikwk.GraphLibrary</PackageId>
+    <NeutralLanguage>aa-DJ</NeutralLanguage>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

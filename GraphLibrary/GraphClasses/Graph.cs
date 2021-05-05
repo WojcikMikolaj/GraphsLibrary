@@ -10,7 +10,7 @@ namespace GraphLibrary
         public int VerticesCount { get => verticesCount; }
         protected readonly int verticesCount;
 
-        public int EdgesCount { get; private set; }
+        public int EdgesCount { get; protected set; }
 
         public bool Directed { get => directed; }
         protected readonly bool directed;
@@ -81,6 +81,8 @@ namespace GraphLibrary
         {
             return degrees[vertexID].Out;
         }
+
+        public abstract Graph Clone();
 
         public abstract Graph IsolatedGraph(bool directed);
 

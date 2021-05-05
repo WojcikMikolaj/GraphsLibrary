@@ -98,6 +98,18 @@ namespace GraphLibrary
             return edges;
         }
 
+        public override Graph Clone()
+        {
+            MatrixGraph copy = new MatrixGraph(this.verticesCount, directed);
+            degrees.CopyTo(copy.degrees, 0);
+            copy.EdgesCount = EdgesCount;
+            for(int i=0; i<verticesCount; i++)
+            {
+                edgesTab[i].CopyTo(copy.edgesTab[i], 0);
+            }
+            return copy;
+        }
+
         public override Graph IsolatedGraph(bool directed)
         {
             return new MatrixGraph(this.verticesCount, directed);
