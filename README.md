@@ -7,3 +7,5 @@ Class library will be implemented in C# using .Net Core 5.0, for unit testing I'
 [![.NET](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/dotnet.yml/badge.svg)](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/dotnet.yml)  
 [![CodeQL](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/codeql-analysis.yml)  
 [![Labeler](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/label.yml/badge.svg)](https://github.com/WojcikMikolaj/GraphsLibrary/actions/workflows/label.yml)
+
+Project is available as a NuGet package called [Mikwk.GraphLibrary](https://www.nuget.org/packages/Mikwk.GraphLibrary/).
